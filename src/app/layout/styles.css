@@ -1,0 +1,13 @@
+body{
+  background-color: eaeaea;
+}
+
+.ui.fixed.menu {
+  background-color: rgba(27, 26, 28, 1);
+}
+
+.ui.main.container {
+  margin-top: 7em;
+}
+
+
