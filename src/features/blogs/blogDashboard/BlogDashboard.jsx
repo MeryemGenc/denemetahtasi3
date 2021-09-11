@@ -1,39 +1,29 @@
-import React, { useState } from 'react'
-import BlogForm from '../blogForm/BlogForm'
+import React, { useState } from 'react' 
 import BlogList from './BlogList'
 import { fakeData } from '../../../app/api/fakeData'
 
-const BlogDashboard = ({ handleSelectBlog, selectedBlog, setSelectedBlog }) => {
+const BlogDashboard = () => {
   const [blogs, setBlogs] = useState(fakeData.blogs)
 
-  function handleCreateBlog(blog) {
-    setBlogs([...blogs, blog])
-  }
+  // function handleCreateBlog(blog) {
+  //   setBlogs([...blogs, blog])
+  // }
 
-  function handleUpdateBlog(updatedBlog) {
-    setBlogs(
-      blogs.map((blg) =>
-        blg.blogId === updatedBlog.blogId ? updatedBlog : blg
-      )
-    )
-    handleSelectBlog(null)
-  }
+  // function handleUpdateBlog(updatedBlog) {
+  //   setBlogs(
+  //     blogs.map((blg) =>
+  //       blg.blogId === updatedBlog.blogId ? updatedBlog : blg
+  //     )
+  //   ) 
+  // }
 
   function handleDeleteBlog(blogId) {
     setBlogs(blogs.filter( blg => blg.blogId !== blogId))
   }
 
   return (
-    <>
-      <BlogForm
-        setBlogs={setBlogs}
-        createBlog={handleCreateBlog}
-        setSelectedBlog={setSelectedBlog}
-        selectedBlog={selectedBlog}
-        updateBlog={handleUpdateBlog}
-        key={selectedBlog ? selectedBlog.blogId : null}
-      />
-      <BlogList blogs={blogs} handleSelectBlog={handleSelectBlog} deleteBlog={handleDeleteBlog} />
+    <> 
+      <BlogList blogs={blogs} deleteBlog={handleDeleteBlog} />
     </>
   )
 }

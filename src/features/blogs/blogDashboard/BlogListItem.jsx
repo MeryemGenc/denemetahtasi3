@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import {
   Card,
   Divider,
@@ -32,7 +33,7 @@ const BlogListItem = ({ blog, handleSelectBlog, deleteBlog }) => {
             {blog.blogArticle.substring(0, 225)} &nbsp;&nbsp;&nbsp; &nbsp;
 
             {/* react-router dan sonra as='Link olmali' */}
-            <Label style={{ marginRight: '50px' }} size='small' attached='bottom right' as='a' onClick={() => handleSelectBlog(blog)} basic color='purple'>
+            <Label as={Link} to={`/blogs/${blog.blogId}`} style={{ marginRight: '50px' }} size='small' attached='bottom right' basic color='purple'>
               Okumaya devam et
             </Label>
             <Label size='small' attached='bottom right' as='a' onClick={() => deleteBlog(blog.blogId)} color={'red'}>

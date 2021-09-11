@@ -1,14 +1,15 @@
 import cuid from 'cuid'
 import React from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Form, Header, Segment } from 'semantic-ui-react'
 
 const BlogForm = ({
   setBlogs,
-  createBlog,
-  selectedBlog,
-  setSelectedBlog,
+  createBlog, 
   updateBlog,
+  selectedBlog,
+  setSelectedBlog
 }) => {
   const initialValues = selectedBlog ?? {
     blogDate: '',
@@ -85,7 +86,8 @@ const BlogForm = ({
         </Form.Field>
         <Button type='submit' floated='right' positive content='Kaydet' />
         <Button
-          onClick={() => setSelectedBlog(null)}
+          as={Link}
+          to='/blogs'
           floated='right'
           content='Vazgec'
         />
