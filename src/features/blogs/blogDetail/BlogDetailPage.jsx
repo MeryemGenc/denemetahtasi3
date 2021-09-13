@@ -1,56 +1,48 @@
 import React from 'react'
-import { Container, Divider, Grid, Image } from 'semantic-ui-react'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Container, Divider, Grid, Image, Label } from 'semantic-ui-react'
 import BlogDetailSidebar from './BlogDetailSidebar'
 
-const BlogDetailPage = () => {
-    return (
-    <Grid style={{ paddingBottom: 50, marginTop: 40 }}>
-        <Grid.Column width={12}>
-      <Container as='h1' textAlign='center'>Center Aligned</Container>
-      <Container textAlign='right'>Right Aligned</Container>
-      <Container textAlign='justified'>
-        <b>Justified</b>
-        <Divider style={{ marginTop: 50, marginBottom: 50 }} />
+const BlogDetailPage = ({ match }) => {
+  const blog = useSelector((state) =>
+    state.blog.blogs.find((blg) => blg.blogId === match.params.id)
+  )
 
-        <Image style={{ marginBottom: 50 }} centered src='https://images.unsplash.com/photo-1500964757637-c85e8a162699?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8dmlld3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60' size='large' />
+  return (
+    <Grid>
+      <Grid.Row>
+      <Grid.Column width={12}>
+        <Container as='h1' textAlign='center'>
+          {blog.blogTitle}
+        </Container>
+        <Container as='h5' textAlign='right'>{blog.blogDate}</Container>
+        <Container as='h5' textAlign='right'>{blog.blogCategory} </Container>
+        <Container textAlign='justified'>
+          <Divider style={{ marginTop: 10, marginBottom: 40 }} />
 
-        <p>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-          commodo ligula eget dolor. Aenean massa strong. Cum sociis natoque
-          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-          Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-          Nulla consequat massa quis enim. Donec pede justo, fringilla vel,
-          aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
-          imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede link
-          mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-          semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
-          porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante,
-          dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla
-          ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam
-          ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-          commodo ligula eget dolor. Aenean massa strong. Cum sociis natoque
-          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-          Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-          Nulla consequat massa quis enim. Donec pede justo, fringilla vel,
-          aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
-          imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede link
-          mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-          semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
-          porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante,
-          dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla
-          ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam
-          ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
-        </p>
-      </Container>
+          <Image
+            style={{ marginBottom: 50 }}
+            centered
+            src={blog.blogPhotoURL}
+            size='large'
+          />
+
+          {blog.blogArticle}
+        </Container>
       </Grid.Column>
-      <Grid.Column width={3} >
-          <BlogDetailSidebar />
+      <Grid.Column width={3}>
+        <BlogDetailSidebar/>
       </Grid.Column>
+      </Grid.Row>
+      <Grid.Row>
+            <Label size='medium' attached='bottom right' as={Link} to={`/edit/${blog.blogId}`} color={'teal'}>
+              Güncelle
+            </Label>
+      </Grid.Row>
+      
     </Grid>
-    )
+  )
 }
 
 export default BlogDetailPage

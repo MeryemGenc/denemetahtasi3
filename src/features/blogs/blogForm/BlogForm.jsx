@@ -1,16 +1,19 @@
 import cuid from 'cuid'
 import React from 'react'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button, Form, Header, Segment } from 'semantic-ui-react'
+import { createBlog, updateBlog } from '../blogActions'
 
-const BlogForm = ({
-  setBlogs,
-  createBlog, 
-  updateBlog,
-  selectedBlog,
-  setSelectedBlog
-}) => {
+const BlogForm = ({ match, history }) => {
+  const dispatch = useDispatch()
+
+  const selectedBlog = useSelector((state) =>
+    state.blog.blogs.find((blg) => blg.blogId === match.params.id)
+  )
+
   const initialValues = selectedBlog ?? {
     blogDate: '',
     blogTitle: '',
@@ -23,14 +26,14 @@ const BlogForm = ({
 
   function handleFormSubmit() {
     selectedBlog
-      ? updateBlog({ ...selectedBlog, ...values })
-      : createBlog({ ...values, blogId: cuid() })
+      ? dispatch(updateBlog({ ...selectedBlog, ...values }))
+      : dispatch(createBlog({ ...values, blogId: cuid() }))
+    history.push('/blogs')
   }
 
   function handleInputChange(e) {
     const { name, value } = e.target
-    setValues({ ...values, [name]: value })
-    setSelectedBlog(null)
+    setValues({ ...values, [name]: value }) 
   }
 
   return (
@@ -85,12 +88,7 @@ const BlogForm = ({
           />
         </Form.Field>
         <Button type='submit' floated='right' positive content='Kaydet' />
-        <Button
-          as={Link}
-          to='/blogs'
-          floated='right'
-          content='Vazgec'
-        />
+        <Button as={Link} to='/blogs' floated='right' content='Vazgec' />
       </Form>
     </Segment>
   )

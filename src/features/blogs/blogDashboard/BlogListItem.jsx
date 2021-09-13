@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {
   Card,
@@ -8,9 +9,11 @@ import {
   Image,
   Label,
 } from 'semantic-ui-react'
+import { deleteBlog } from '../blogActions'
 
-const BlogListItem = ({ blog, handleSelectBlog, deleteBlog }) => {
-  // console.log(blog)
+const BlogListItem = ({ blog }) => {
+  const dispatch = useDispatch() 
+  
 
   return (
     <>
@@ -36,7 +39,7 @@ const BlogListItem = ({ blog, handleSelectBlog, deleteBlog }) => {
             <Label as={Link} to={`/blogs/${blog.blogId}`} style={{ marginRight: '50px' }} size='small' attached='bottom right' basic color='purple'>
               Okumaya devam et
             </Label>
-            <Label size='small' attached='bottom right' as='a' onClick={() => deleteBlog(blog.blogId)} color={'red'}>
+            <Label size='small' attached='bottom right' as='a' onClick={() => dispatch(deleteBlog(blog.blogId))} color={'red'}>
               Sil
             </Label>
           </Card.Content>
