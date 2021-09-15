@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -16,7 +17,7 @@ const BlogDetailPage = ({ match }) => {
         <Container as='h1' textAlign='center'>
           {blog.blogTitle}
         </Container>
-        <Container as='h5' textAlign='right'>{blog.blogDate}</Container>
+        <Container as='h5' textAlign='right'>{format(blog.blogDate, 'MMMM d, yyyy')}</Container>
         <Container as='h5' textAlign='right'>{blog.blogCategory} </Container>
         <Container textAlign='justified'>
           <Divider style={{ marginTop: 10, marginBottom: 40 }} />

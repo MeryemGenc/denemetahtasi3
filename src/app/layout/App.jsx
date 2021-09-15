@@ -6,6 +6,7 @@ import BlogDetailPage from '../../features/blogs/blogDetail/BlogDetailPage'
 import BlogForm from '../../features/blogs/blogForm/BlogForm'
 import HomePage from '../../features/home/HomePage'
 import NavBar from '../../features/nav/NavBar'
+import ModalManager from '../common/modal/ModalManager'
 
 function App() { 
   const {key} = useLocation()
@@ -13,6 +14,7 @@ function App() {
 
   return (
     <>
+      <ModalManager />
       <Route exact path='/' component={HomePage} />
       <Route
         path={'/(.+)'}

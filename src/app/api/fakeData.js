@@ -12,8 +12,7 @@ export const fakeData = {
   blogs: [
     {
       blogId: '1',
-      blogDate: '2018-03-21',
-    //   blogDate: new Date('2018-03-21'),
+      blogDate: new Date('2018-03-21'),
       blogTitle: 'blog title 1',
       blogCategory: 'Konu1',
       blogArticle:
@@ -23,8 +22,7 @@ export const fakeData = {
     },
     {
       blogId: '2',
-      blogDate: '2018-03-21',
-    //   blogDate: new Date('2018-03-21'),
+      blogDate: new Date('2018-03-21'),
       blogTitle: 'blog title 2',
       blogCategory: 'Konu2',
       blogArticle:
@@ -34,8 +32,7 @@ export const fakeData = {
     },
     {
       blogId: '3',
-      blogDate: '2018-03-21',
-    //   blogDate: new Date('2018-03-21'),
+      blogDate: new Date('2018-03-21'),
       blogTitle: 'blog title 3',
       blogCategory: 'Konu3',
       blogArticle:
@@ -45,8 +42,7 @@ export const fakeData = {
     },
     {
       blogId: '4',
-      blogDate: '2018-03-21',
-    //   blogDate: new Date('2018-03-21'),
+      blogDate: new Date('2018-03-21'),
       blogTitle: 'blog title 4',
       blogCategory: 'Konu4',
       blogArticle:

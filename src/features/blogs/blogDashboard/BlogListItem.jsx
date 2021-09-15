@@ -10,6 +10,7 @@ import {
   Label,
 } from 'semantic-ui-react'
 import { deleteBlog } from '../blogActions'
+import {format} from 'date-fns';
 
 const BlogListItem = ({ blog }) => {
   const dispatch = useDispatch() 
@@ -29,7 +30,7 @@ const BlogListItem = ({ blog }) => {
           <Card.Meta>
             {blog.blogCategory} &nbsp;&nbsp;&nbsp;
             <Icon name='calendar alternate outline' /> &nbsp;&nbsp;
-            <span>{blog.blogDate} </span>
+            <span>{format(blog.blogDate, 'MMMM d, yyyy')} </span>
           </Card.Meta>
           <Divider />
           <Card.Content>
