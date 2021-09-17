@@ -3,7 +3,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Container, Divider, Grid, Image, Label } from 'semantic-ui-react'
-import BlogDetailSidebar from './BlogDetailSidebar'
+import BlogFilters from '../blogDashboard/BlogFilters' 
 
 const BlogDetailPage = ({ match }) => {
   const blog = useSelector((state) =>
@@ -32,8 +32,9 @@ const BlogDetailPage = ({ match }) => {
           {blog.blogArticle}
         </Container>
       </Grid.Column>
-      <Grid.Column width={3}>
-        <BlogDetailSidebar/>
+      <Grid.Column width={4}>
+      <BlogFilters />
+        {/* <BlogDetailSidebar/> */}
       </Grid.Column>
       </Grid.Row>
       <Grid.Row>

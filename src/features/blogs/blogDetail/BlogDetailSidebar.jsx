@@ -4,6 +4,7 @@ import { Dropdown, Icon, Input, Menu } from 'semantic-ui-react'
 const BlogDetailSideBar = () => {
     return (
       
+
       <Menu vertical size='large'>
         <Menu.Item>
           <Input placeholder='Search...' />
