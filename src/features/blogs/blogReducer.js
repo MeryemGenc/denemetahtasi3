@@ -28,7 +28,8 @@ export default function blogReducer(state = initialState, { type, payload }) {
     case FETCH_BLOGS:
       return {
         ...state,
-        blogs: payload.blogs,
+        blogs: payload,
+        // blogs: payload.blogs,
       }
 
     default:

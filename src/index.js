@@ -10,10 +10,8 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { configureStore } from './app/store/configureStore'
 import ScrollToTop from './app/layout/ScrollToTop'
-import { loadBlogs } from './features/blogs/blogActions'
 
 const store = configureStore()
-store.dispatch(loadBlogs())
 const rootEl = document.getElementById('root')
 
 function render() {

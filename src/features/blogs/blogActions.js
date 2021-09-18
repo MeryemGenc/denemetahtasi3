@@ -15,6 +15,13 @@ export function loadBlogs() {
     }
 }
 
+export function listenToBlogs(blogs) {
+    return {
+      type: FETCH_BLOGS,
+      payload: blogs,
+    }
+}
+
 
 export function createBlog(blog) {
     return {

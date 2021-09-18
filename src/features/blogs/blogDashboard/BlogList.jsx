@@ -3,7 +3,6 @@ import { Grid } from 'semantic-ui-react'
 import BlogListItem from './BlogListItem'
 
 const BlogList = ({ blogs }) => {
-
   
   return (
     <Grid>
