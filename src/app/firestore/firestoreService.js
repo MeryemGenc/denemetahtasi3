@@ -26,9 +26,28 @@ export function dataFromSnapshot(snapshot){
 
 
 export function listenToBlogsFromFirestore() {
-    return db.collection('blogs') 
+    return db.collection('blogs').orderBy('blogDate', 'desc')
 }
 
 export function listenToBlogFromFirestore(blogId) {
     return db.collection('blogs').doc(blogId) 
 }
+
+export function addBlogToFirestore(blog) {
+    return db.collection('blogs').add({
+        ...blog,
+
+    })
+}
+
+export function updateBlogInFirestore(blog) {
+  return db.collection('blogs').doc(blog.blogId).update(blog)
+}
+
+export function deleteBlogInFirestore(blogId) {
+  return db.collection('blogs').doc(blogId).delete()
+}
+
+
+
+

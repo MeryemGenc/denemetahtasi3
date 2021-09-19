@@ -8,7 +8,7 @@ const ErrorComponet = () => {
 
     return (
         <Segment placeholder>
-            <Header textAlign='center' content={ error?.message || 'Oops! We have an error :(' } />
+            <Header textAlign='center' content={ error?.message || 'Oops! Something went wrong :(' } />
             <Button as={Link} to='/blogs' primary style={{ marginTop: 20 }} content='Geri Don' />
         </Segment>
     )

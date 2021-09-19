@@ -1,24 +1,32 @@
-import cuid from 'cuid'
 import { Formik, Form } from 'formik'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { Button, Header, Segment } from 'semantic-ui-react'
-import { createBlog, updateBlog } from '../blogActions'
+import { listenToBlogs } from '../blogActions'
 import * as Yup from 'yup'
 import { categoryData } from '../../../app/api/categoryOptions'
 import MyTextInput from '../../../app/common/form/MyTextInput'
 import MyTextArea from '../../../app/common/form/MyTextArea'
 import MySelectInput from '../../../app/common/form/MySelectInput'
 import MyDateInput from '../../../app/common/form/MyDateInpup'
+import useFirestoreDoc from '../../../app/hooks/useFirestoreDoc'
+import {
+  addBlogToFirestore,
+  listenToBlogFromFirestore,
+  updateBlogInFirestore,
+} from '../../../app/firestore/firestoreService'
+import LoadingComponent from '../../../app/layout/LoadingComponent'
+import { toast } from 'react-toastify'
 
 const BlogForm = ({ match, history }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch() 
 
   const selectedBlog = useSelector((state) =>
     state.blog.blogs.find((blg) => blg.blogId === match.params.id)
   )
+  const { loading, error } = useSelector((state) => state.async)
 
   const initialValues = selectedBlog ?? {
     blogDate: '',
@@ -36,16 +44,38 @@ const BlogForm = ({ match, history }) => {
     blogArticle: Yup.string().required('Lütfen yazıyı giriniz.'),
   })
 
+
+  useFirestoreDoc({
+    query: () => listenToBlogFromFirestore(match.params.id),
+    data: (blog) => dispatch(listenToBlogs([blog])),
+    deps: [match.params.id, dispatch],
+    shouldExecute: !!match.params.id,
+  })
+
+  // if (loading || (!selectedBlog && !error)) {
+  if (loading) {
+    return <LoadingComponent content='Loading Blogs...' />
+  }
+  if (error) {
+    return <Redirect to='/error' />
+  }
+
   return (
     <Segment clearing>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          selectedBlog
-            ? dispatch(updateBlog({ ...selectedBlog, ...values }))
-            : dispatch(createBlog({ ...values, blogId: cuid() }))
-          history.push('/blogs')
+        onSubmit={async (values, { setSubmitting }) => {
+          try {
+            selectedBlog
+              ? await updateBlogInFirestore(values)
+              : await addBlogToFirestore(values)
+            setSubmitting(false)
+            history.push('/blogs')
+          } catch (error) {
+            toast.error(error.message)
+            setSubmitting(false)
+          }
         }}
       >
         {({ isSubmitting, dirty, isValid }) => (
@@ -75,8 +105,21 @@ const BlogForm = ({ match, history }) => {
             {/* Editor eklenmeli */}
             <MyTextArea name='blogArticle' placeholder='Yazi' rows={6} />
 
-            <Button disabled={!isValid || !dirty || isSubmitting} loading={isSubmitting} type='submit' floated='right' positive content='Kaydet' />
-            <Button disabled={isSubmitting} as={Link} to='/blogs' floated='right' content='Vazgec' />
+            <Button
+              disabled={!isValid || !dirty || isSubmitting}
+              loading={isSubmitting}
+              type='submit'
+              floated='right'
+              positive
+              content='Kaydet'
+            />
+            <Button
+              disabled={isSubmitting}
+              as={Link}
+              to='/blogs'
+              floated='right'
+              content='Vazgec'
+            />
           </Form>
         )}
       </Formik>
