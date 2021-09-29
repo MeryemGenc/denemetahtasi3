@@ -1,4 +1,4 @@
-import React from 'react' 
+import React from 'react'
 import { Route, useLocation } from 'react-router'
 import { Container } from 'semantic-ui-react'
 import BlogDashboard from '../../features/blogs/blogDashboard/BlogDashboard'
@@ -7,13 +7,18 @@ import BlogForm from '../../features/blogs/blogForm/BlogForm'
 import HomePage from '../../features/home/HomePage'
 import NavBar from '../../features/nav/NavBar'
 import ModalManager from '../common/modal/ModalManager'
-import {ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify'
 import ErrorComponet from '../common/errors/ErrorComponet'
+import { useSelector } from 'react-redux'
+import LoadingComponent from './LoadingComponent'
+import ProfilePage from '../../features/profiles/profilePages/ProfilePage'
 
-function App() { 
-  const {key} = useLocation()
+function App() {
+  const { key } = useLocation()
+  const { initialized } = useSelector((state) => state.async)
+
+  if(!initialized) return <LoadingComponent content='Loading App...' />
  
-
   return (
     <>
       <ModalManager />
@@ -27,8 +32,13 @@ function App() {
             <Container className='main'>
               <Route exact path='/blogs' component={BlogDashboard} />
               <Route path='/blogs/:id' component={BlogDetailPage} />
-              <Route path={['/createBlog', '/edit/:id']} component={BlogForm} key={key} /> 
-              <Route path='/error' component={ErrorComponet} /> 
+              <Route
+                path={['/createBlog', '/edit/:id']}
+                component={BlogForm}
+                key={key}
+              />
+              <Route path='/profile' component={ProfilePage} />
+              <Route path='/error' component={ErrorComponet} />
             </Container>
           </>
         )}
