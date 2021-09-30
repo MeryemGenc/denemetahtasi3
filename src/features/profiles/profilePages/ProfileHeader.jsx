@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Divider, Grid, Header, Item, Reveal, Segment, Statistic } from 'semantic-ui-react'
 
-const ProfileHeader = () => {
+const ProfileHeader = ({profile}) => {
     return (
         <Segment>
             <Grid>
@@ -10,7 +10,7 @@ const ProfileHeader = () => {
                         <Item>
                             <Item.Image avatar size='small' src='/assets/user.png' />
                             <Item.Content verticalAlign='middle' >
-                                <Header as='h1' style={{ display: 'block', margnBottom: 10 }} >Varsayılan Ad</Header>
+                                <Header as='h1' style={{ display: 'block', margnBottom: 10 }} >{profile.displayName}</Header>
                             </Item.Content>
                         </Item>
                     </Item.Group>

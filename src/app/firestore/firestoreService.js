@@ -49,5 +49,9 @@ export function deleteBlogInFirestore(blogId) {
 }
 
 
+export function getUserProfile(userId) {
+    return db.collection('users').doc(userId)
+}
+
 
 

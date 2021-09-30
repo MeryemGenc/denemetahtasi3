@@ -1,13 +1,14 @@
 import React from 'react'
 import { Tab } from 'semantic-ui-react'
+import AboutTab from './AboutTab'
 
-const ProfileContent = () => {
+const ProfileContent = ({profile}) => {
     const panes= [
-        {menuItem: 'About', render: () => <Tab.Pane>About User</Tab.Pane>},
-        {menuItem: 'Photos', render: () => <Tab.Pane>About User</Tab.Pane>},
-        {menuItem: 'Blogs', render: () => <Tab.Pane>About User</Tab.Pane>},
-        {menuItem: 'Takip Edenler', render: () => <Tab.Pane>About User</Tab.Pane>},
-        {menuItem: 'Takiptekiler', render: () => <Tab.Pane>About User</Tab.Pane>},
+        {menuItem: 'About', render: () => <AboutTab profile={profile} />},
+        {menuItem: 'Photos', render: () => <Tab.Pane>Photos</Tab.Pane>},
+        {menuItem: 'Blogs', render: () => <Tab.Pane>Blogs</Tab.Pane>},
+        {menuItem: 'Takip Edenler', render: () => <Tab.Pane>Takip Edenler</Tab.Pane>},
+        {menuItem: 'Takiptekiler', render: () => <Tab.Pane>Takiptekiler</Tab.Pane>},
     ]
 
 
