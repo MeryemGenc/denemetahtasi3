@@ -1,30 +1,24 @@
-import React from 'react' 
+import React from 'react'
 import { Link } from 'react-router-dom'
-import {
-  Card,
-  Divider,
-  Grid,
-  Icon,
-  Image,
-  Label,
-} from 'semantic-ui-react' 
-import {format} from 'date-fns';
+import { Card, Divider, Grid, Icon, Image, Label } from 'semantic-ui-react'
+import { format } from 'date-fns'
 import { deleteBlogInFirestore } from '../../../app/firestore/firestoreService'
 
-const BlogListItem = ({ blog }) => { 
-  
-
+const BlogListItem = ({ blog }) => {
   return (
     <>
       <Grid.Row style={{ margin: '50px' }}>
         <Grid.Column width={5}>
           {/* image: 400 * 300 */}
-          <Image src={blog.blogPhotoURL} />
+          <Image className='blogItemImage' src={blog.blogPhotoURL} />
           {/* </Card> */}
         </Grid.Column>
         <Grid.Column width={11}>
           {/* <Card border='none' fluid={'true'} style={{height:'100%', border: '5px' }} > */}
-          <Card.Header as='h1'>{blog.blogTitle}</Card.Header>
+          <Card.Header style={{ color: 'black', fontWeight: 'bold', fontSize: 21 }} as={Link} to={`/blogs/${blog.blogId}`}  >
+            {blog.blogTitle}
+            <br /><br />
+          </Card.Header>
           <Card.Meta>
             {blog.blogCategory} &nbsp;&nbsp;&nbsp;
             <Icon name='calendar alternate outline' /> &nbsp;&nbsp;
@@ -33,12 +27,25 @@ const BlogListItem = ({ blog }) => {
           <Divider />
           <Card.Content>
             {blog.blogArticle.substring(0, 225)} &nbsp;&nbsp;&nbsp; &nbsp;
-
             {/* react-router dan sonra as='Link olmali' */}
-            <Label as={Link} to={`/blogs/${blog.blogId}`} style={{ marginRight: '50px' }} size='small' attached='bottom right' basic color='purple'>
+            <Label
+              as={Link}
+              to={`/blogs/${blog.blogId}`}
+              style={{ marginRight: '50px' }}
+              size='small'
+              attached='bottom right'
+              basic
+              color='purple'
+            >
               Okumaya devam et
             </Label>
-            <Label size='small' attached='bottom right' as='a' onClick={() => deleteBlogInFirestore(blog.blogId)} color={'red'}>
+            <Label
+              size='small'
+              attached='bottom right'
+              as='a'
+              onClick={() => deleteBlogInFirestore(blog.blogId)}
+              color={'red'}
+            >
               Sil
             </Label>
           </Card.Content>

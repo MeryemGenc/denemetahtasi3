@@ -1,7 +1,15 @@
 import React from 'react'
 import { Button, Divider, Grid, Header, Item, Reveal, Segment, Statistic } from 'semantic-ui-react'
 
-const ProfileHeader = ({profile}) => {
+const ProfileHeader = ({profile, isCurrentUser}) => {
+
+
+// console.log('header')
+// console.log(isCurrentUser)
+// console.log('header')
+
+
+
     return (
         <Segment>
             <Grid>

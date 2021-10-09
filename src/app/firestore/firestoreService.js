@@ -1,43 +1,38 @@
 import firebase from '../config/firebase'
 
-
 const db = firebase.firestore()
 
+export function dataFromSnapshot(snapshot) {
+  if (!snapshot.exists) return undefined
+  const data = snapshot.data()
 
-export function dataFromSnapshot(snapshot){
-    if (!snapshot.exists) return undefined
-    const data = snapshot.data()
-
-    // firestore dan gelen TimeStamp objesini js date objesine dönüştürmek.
-    for (const prop in data) {
-        if (data.hasOwnProperty(prop)) {
-            if (data[prop] instanceof firebase.firestore.Timestamp ) {
-                data[prop] = data[prop].toDate()
-            }
-        }
-        
+  // firestore dan gelen TimeStamp objesini js date objesine dönüştürmek.
+  for (const prop in data) {
+    if (data.hasOwnProperty(prop)) {
+      if (data[prop] instanceof firebase.firestore.Timestamp) {
+        data[prop] = data[prop].toDate()
+      }
     }
+  }
 
-    return {
-        ...data,
-        blogId: snapshot.id
-    }
+  return {
+    ...data,
+    blogId: snapshot.id,
+  }
 }
 
-
 export function listenToBlogsFromFirestore() {
-    return db.collection('blogs').orderBy('blogDate', 'desc')
+  return db.collection('blogs').orderBy('blogDate', 'desc')
 }
 
 export function listenToBlogFromFirestore(blogId) {
-    return db.collection('blogs').doc(blogId) 
+  return db.collection('blogs').doc(blogId)
 }
 
 export function addBlogToFirestore(blog) {
-    return db.collection('blogs').add({
-        ...blog,
-
-    })
+  return db.collection('blogs').add({
+    ...blog,
+  })
 }
 
 export function updateBlogInFirestore(blog) {
@@ -48,10 +43,28 @@ export function deleteBlogInFirestore(blogId) {
   return db.collection('blogs').doc(blogId).delete()
 }
 
-
 export function getUserProfile(userId) {
-    return db.collection('users').doc(userId)
+  return db.collection('users').doc(userId)
 }
 
 
 
+
+// export async function updateUserProfile(profile) {
+//   const user = firebase.auth().currentUser
+//   try {
+//     if (user.displayName !== profile.displayName) {
+//       // console.log(user.displayName)
+//       // console.log(profile.displayName)
+
+//       await user.updateProfile({
+//         displayName: profile.displayName,
+//       })
+//     return await db.collection('users').doc(user.uid).update(profile)
+//     }
+
+//     // console.log(db.collection('users').doc(user.uid))
+//   } catch (error) {
+//     throw error
+//   }
+// }
