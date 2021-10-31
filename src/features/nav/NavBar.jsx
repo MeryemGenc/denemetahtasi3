@@ -7,9 +7,12 @@ import SignedOutMenu from './SignedOutMenu'
 
 const NavBar = () => {  
   const {authenticated} = useSelector(state => state.auth)
+  // const {authenticated} = useSelector(state => state.auth)
 
 
-   
+  //  function handleNewBlogButton(params) {
+     
+  //  }
 
 
   return (

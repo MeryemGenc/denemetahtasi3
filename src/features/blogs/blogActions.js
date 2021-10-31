@@ -1,4 +1,4 @@
-import { fetchSampleData } from '../../app/api/mockApi'
+// import { fetchSampleData } from '../../app/api/mockApi'
 import {
   asyncActionError,
   asyncActionFinish,
@@ -6,9 +6,11 @@ import {
 } from '../../app/async/asyncReducer'
 import { dataFromSnapshot, fetchBlogsFromFirestore } from '../../app/firestore/firestoreService'
 import {
+  CLEAR_BLOGS,
   CREATE_BLOG,
   DELETE_BLOG,
   FETCH_BLOGS,
+  LISTEN_TO_SELECTED_BLOG,
   UPDATE_BLOG,
 } from './blogConstants'
 
@@ -33,10 +35,10 @@ export function fetchBlogs(limit, lastDocSnapshot) {
   }
 }
 
-export function listenToBlogs(blogs) {
+export function listenToSelectedBlog(blog) {
   return {
-    type: FETCH_BLOGS,
-    payload: blogs,
+    type: LISTEN_TO_SELECTED_BLOG,
+    payload: blog,
   }
 }
 
@@ -58,5 +60,11 @@ export function deleteBlog(blogId) {
   return {
     type: DELETE_BLOG,
     payload: blogId,
+  }
+}
+
+export function clearBlogs() {
+  return {
+    type: CLEAR_BLOGS,
   }
 }

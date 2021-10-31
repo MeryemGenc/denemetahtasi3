@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import { Button, Header, Segment } from 'semantic-ui-react'
-import { listenToBlogs } from '../blogActions'
+import { listenToSelectedBlog } from '../blogActions'
 import * as Yup from 'yup'
 import { categoryData } from '../../../app/api/categoryOptions'
 import MyTextInput from '../../../app/common/form/MyTextInput'
@@ -23,8 +23,8 @@ import { toast } from 'react-toastify'
 const BlogForm = ({ match, history }) => {
   const dispatch = useDispatch() 
 
-  const selectedBlog = useSelector((state) =>
-    state.blog.blogs.find((blg) => blg.blogId === match.params.id)
+  const {selectedBlog} = useSelector((state) =>
+    state.blog
   )
   const { loading, error } = useSelector((state) => state.async)
 
@@ -47,7 +47,7 @@ const BlogForm = ({ match, history }) => {
 
   useFirestoreDoc({
     query: () => listenToBlogFromFirestore(match.params.id),
-    data: (blog) => dispatch(listenToBlogs([blog])),
+    data: (blog) => dispatch(listenToSelectedBlog(blog)),
     deps: [match.params.id, dispatch],
     shouldExecute: !!match.params.id,
   })

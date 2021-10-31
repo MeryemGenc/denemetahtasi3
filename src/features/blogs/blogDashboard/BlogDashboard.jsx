@@ -3,12 +3,12 @@ import BlogList from './BlogList'
 import { useSelector } from 'react-redux'
 // import LoadingComponent from '../../../app/layout/LoadingComponent'
 import BlogListItemPlaceholder from './BlogListItemPlaceholder'
-import BlogDetailSideBar from '../blogDetail/BlogDetailSidebar'
-import { listenToBlogsFromFirestore } from '../../../app/firestore/firestoreService'
-import { fetchBlogs, listenToBlogs } from '../blogActions'
+// import BlogDetailSideBar from '../blogDetail/BlogDetailSidebar'
+// import { listenToBlogsFromFirestore } from '../../../app/firestore/firestoreService'
+import { clearBlogs, fetchBlogs } from '../blogActions'
 import { useDispatch } from 'react-redux'
-import useFirestoreCollection from '../../../app/hooks/useFirestoreCollection'
-import { Button, Loader, Segment } from 'semantic-ui-react'
+// import useFirestoreCollection from '../../../app/hooks/useFirestoreCollection'
+import { Loader, Segment } from 'semantic-ui-react'
 
 const BlogDashboard = () => {
   const limit = 2
@@ -24,6 +24,9 @@ const BlogDashboard = () => {
       setLastDocSnapshot(lastVisible)
       setLoadingInitial(false)
     })
+    return () => {
+      dispatch(clearBlogs())
+    }
   }, [dispatch])
 
   function handleFetchLastBlogs () {

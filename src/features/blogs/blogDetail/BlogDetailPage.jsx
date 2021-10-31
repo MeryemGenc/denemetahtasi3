@@ -5,21 +5,24 @@ import { Link, Redirect } from 'react-router-dom'
 import { Container, Divider, Grid, Image, Label } from 'semantic-ui-react'
 import { listenToBlogFromFirestore } from '../../../app/firestore/firestoreService'
 import useFirestoreDoc from '../../../app/hooks/useFirestoreDoc'
-import { listenToBlogs } from '../blogActions'
+import { listenToSelectedBlog } from '../blogActions'
 import BlogFilters from '../blogDashboard/BlogFilters'
 import LoadingComponent from '../../../app/layout/LoadingComponent'; 
 
 const BlogDetailPage = ({ match }) => {
   const dispatch = useDispatch()
   const blog = useSelector((state) =>
-    state.blog.blogs.find((blg) => blg.blogId === match.params.id)
+    state.blog.selectedBlog
   )
+  // const blog = useSelector((state) =>
+  //   state.blog.blogs.find((blg) => blg.blogId === match.params.id)
+  // )
  
   const {loading, error} = useSelector(state => state.async)
  
   useFirestoreDoc({
     query: () => listenToBlogFromFirestore(match.params.id),
-    data: (blog) => dispatch(listenToBlogs([blog])),
+    data: (blog) => dispatch(listenToSelectedBlog(blog)),
     deps: [match.params.id, dispatch]
   })
 
