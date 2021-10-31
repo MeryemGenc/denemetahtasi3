@@ -21,8 +21,12 @@ export function dataFromSnapshot(snapshot) {
   }
 }
 
-export function listenToBlogsFromFirestore() {
-  return db.collection('blogs').orderBy('blogDate', 'desc')
+export function fetchBlogsFromFirestore(limit, lastDocSnapshot = null) {
+  return db
+    .collection('blogs')
+    .orderBy('blogDate')
+    .startAfter(lastDocSnapshot)
+    .limit(limit)
 }
 
 export function listenToBlogFromFirestore(blogId) {

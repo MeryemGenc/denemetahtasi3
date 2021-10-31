@@ -6,7 +6,7 @@ import { deleteBlogInFirestore } from '../../../app/firestore/firestoreService'
 
 const BlogListItem = ({ blog }) => {
   return (
-    <>
+    <Grid>
       <Grid.Row style={{ margin: '50px' }}>
         <Grid.Column width={5}>
           {/* image: 400 * 300 */}
@@ -31,7 +31,7 @@ const BlogListItem = ({ blog }) => {
             <Label
               as={Link}
               to={`/blogs/${blog.blogId}`}
-              style={{ marginRight: '50px' }}
+              style={{ marginRight: '50px'}}
               size='small'
               attached='bottom right'
               basic
@@ -52,7 +52,7 @@ const BlogListItem = ({ blog }) => {
           {/* <Image src='https://react.semantic-ui.com/images/wireframe/centered-paragraph.png' /> */}
         </Grid.Column>
       </Grid.Row>
-    </>
+    </Grid>
   )
 }
 
