@@ -11,12 +11,12 @@ import LoadingComponent from '../../../app/layout/LoadingComponent';
 
 const BlogDetailPage = ({ match }) => {
   const dispatch = useDispatch()
+  const {currentUser} = useSelector((state)=> state.auth)
   const blog = useSelector((state) =>
     state.blog.selectedBlog
   )
-  // const blog = useSelector((state) =>
-  //   state.blog.blogs.find((blg) => blg.blogId === match.params.id)
-  // )
+  // const {authenticated} = useSelector((state)=> state.auth)
+  // isHosting = currentUser
  
   const {loading, error} = useSelector(state => state.async)
  
@@ -58,14 +58,15 @@ const BlogDetailPage = ({ match }) => {
         </Container>
       </Grid.Column>
       <Grid.Column width={4}>
-      <BlogFilters />
+      {/* <BlogFilters /> */}
         {/* <BlogDetailSidebar/> */}
       </Grid.Column>
       </Grid.Row>
       <Grid.Row>
+        {currentUser && (
             <Label size='medium' attached='bottom right' as={Link} to={`/edit/${blog?.blogId}`} color={'teal'}>
               Güncelle
-            </Label>
+            </Label>)}
       </Grid.Row>
       
     </Grid>

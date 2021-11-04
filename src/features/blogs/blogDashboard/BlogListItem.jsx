@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom'
 import { Card, Divider, Grid, Icon, Image, Label } from 'semantic-ui-react'
 import { format } from 'date-fns'
 import { deleteBlogInFirestore } from '../../../app/firestore/firestoreService'
+import { useSelector } from 'react-redux'
 
 const BlogListItem = ({ blog }) => {
+  const {currentUser} = useSelector((state)=> state.auth)
   return (
     <Grid>
       <Grid.Row style={{ margin: '50px' }}>
@@ -39,6 +41,7 @@ const BlogListItem = ({ blog }) => {
             >
               Okumaya devam et
             </Label>
+            {currentUser && (
             <Label
               size='small'
               attached='bottom right'
@@ -47,7 +50,7 @@ const BlogListItem = ({ blog }) => {
               color={'red'}
             >
               Sil
-            </Label>
+            </Label>)}
           </Card.Content>
           {/* <Image src='https://react.semantic-ui.com/images/wireframe/centered-paragraph.png' /> */}
         </Grid.Column>

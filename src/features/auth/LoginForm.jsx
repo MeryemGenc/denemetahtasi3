@@ -60,6 +60,7 @@ const LoginForm = () => {
           </Form>
         )}
       </Formik>
+      
     </ModalWrapper>
   )
 }

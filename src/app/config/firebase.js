@@ -6,6 +6,7 @@ import 'firebase/storage'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCDSjquSOd87v3jNWNPJ0Rc1P_TYz7sq7g',
+  // apiKey: process.env.production.REACT_APP_API_KEY,
   authDomain: 'denemetahtasi3-888d5.firebaseapp.com',
   projectId: 'denemetahtasi3-888d5',
   storageBucket: 'denemetahtasi3-888d5.appspot.com',

@@ -12,6 +12,7 @@ import ErrorComponet from '../common/errors/ErrorComponet'
 import { useSelector } from 'react-redux'
 import LoadingComponent from './LoadingComponent'
 import ProfilePage from '../../features/profiles/profilePages/ProfilePage'
+import PrivateRoute from './PrivateRoute'
 
 function App() {
   const { key } = useLocation()
@@ -32,12 +33,12 @@ function App() {
             <Container className='main'>
               <Route exact path='/blogs' component={BlogDashboard} />
               <Route path='/blogs/:id' component={BlogDetailPage} />
-              <Route
+              <PrivateRoute
                 path={['/createBlog', '/edit/:id']}
                 component={BlogForm}
                 key={key}
               />
-              <Route path='/profile' component={ProfilePage} />
+              <PrivateRoute path='/profile' component={ProfilePage} />
               <Route path='/error' component={ErrorComponet} />
             </Container>
           </>

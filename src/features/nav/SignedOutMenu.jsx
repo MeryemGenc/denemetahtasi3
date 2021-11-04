@@ -11,9 +11,9 @@ const SignedOutMenu = ({setAuthenticated}) => {
       <Button onClick={() =>  dispatch(openModal({modalType:'LoginForm'})) } basic inverted>
         Giris
       </Button>
-      <Button basic inverted style={{ marginLeft: '0.5em' }}>
+      {/* <Button basic inverted style={{ marginLeft: '0.5em' }}>
         Kayıt Ol
-      </Button>
+      </Button> */}
     </Menu.Item>
   )
 }
