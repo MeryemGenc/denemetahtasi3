@@ -11,27 +11,39 @@ import {
   DELETE_BLOG,
   FETCH_BLOGS,
   LISTEN_TO_SELECTED_BLOG,
+  SET_START_DATE,
   UPDATE_BLOG,
 } from './blogConstants'
 
-export function fetchBlogs(limit, lastDocSnapshot) {
+export function fetchBlogs(startDate, limit, lastDocSnapshot) {
   return async function (dispatch) {
     dispatch(asyncActionStart())
     try {
       //   const blogs = await fetchSampleData()
       const snapshot = await fetchBlogsFromFirestore(
+        startDate,
         limit,
         lastDocSnapshot
       ).get()
       const lastVisible = snapshot.docs[snapshot.docs.length-1]
       const moreBlogs = snapshot.docs.length >= limit
       const blogs = snapshot.docs.map(doc => dataFromSnapshot(doc))
-      dispatch({ type: FETCH_BLOGS, payload: {blogs, moreBlogs} })
+      dispatch({
+        type: FETCH_BLOGS,
+        payload: { blogs, moreBlogs, lastVisible },
+      })
       dispatch(asyncActionFinish())
-      return lastVisible
+      // return lastVisible
     } catch (error) {
       dispatch(asyncActionError(error))
     }
+  }
+}
+
+export function setStartDate(date) {
+  return function (dispatch) {
+    dispatch(clearBlogs())
+    dispatch({type: SET_START_DATE, payload: date})
   }
 }
 

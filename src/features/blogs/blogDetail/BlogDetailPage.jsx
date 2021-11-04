@@ -6,7 +6,6 @@ import { Container, Divider, Grid, Image, Label } from 'semantic-ui-react'
 import { listenToBlogFromFirestore } from '../../../app/firestore/firestoreService'
 import useFirestoreDoc from '../../../app/hooks/useFirestoreDoc'
 import { listenToSelectedBlog } from '../blogActions'
-import BlogFilters from '../blogDashboard/BlogFilters'
 import LoadingComponent from '../../../app/layout/LoadingComponent'; 
 
 const BlogDetailPage = ({ match }) => {

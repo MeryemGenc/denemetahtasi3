@@ -5,34 +5,37 @@ import { useSelector } from 'react-redux'
 import BlogListItemPlaceholder from './BlogListItemPlaceholder'
 // import BlogDetailSideBar from '../blogDetail/BlogDetailSidebar'
 // import { listenToBlogsFromFirestore } from '../../../app/firestore/firestoreService'
-import { clearBlogs, fetchBlogs } from '../blogActions'
+import { fetchBlogs } from '../blogActions'
 import { useDispatch } from 'react-redux'
 // import useFirestoreCollection from '../../../app/hooks/useFirestoreCollection'
 import { Loader, Segment } from 'semantic-ui-react'
+import { RETAIN_STATE } from '../blogConstants'
 
 const BlogDashboard = () => {
   const limit = 2
   const dispatch = useDispatch()
-  const { blogs, moreBlogs } = useSelector((state) => state.blog)
+  const { blogs, moreBlogs, startDate, lastVisible, retainState } = useSelector((state) => state.blog)
   const { loading } = useSelector((state) => state.async)
-  const [lastDocSnapshot, setLastDocSnapshot] = useState(null)
+  // const [lastDocSnapshot, setLastDocSnapshot] = useState(null)
   const [loadingInitial, setLoadingInitial] = useState(false)
 
   useEffect(() => {
+    if(retainState) return
     setLoadingInitial(true)
-    dispatch(fetchBlogs(limit)).then((lastVisible) => {
-      setLastDocSnapshot(lastVisible)
+    dispatch(fetchBlogs(startDate, limit)).then(() => {
+      // setLastDocSnapshot(lastVisible)
       setLoadingInitial(false)
     })
     return () => {
-      dispatch(clearBlogs())
+      dispatch({type: RETAIN_STATE})
     }
-  }, [dispatch])
+  }, [dispatch, startDate, retainState])
 
   function handleFetchLastBlogs () {
-    dispatch(fetchBlogs(limit, lastDocSnapshot)).then((lastVisible) => {
-      setLastDocSnapshot(lastVisible)
-    })
+    dispatch(fetchBlogs(retainState, limit, lastVisible))
+    // .then((lastVisible) => {
+    //   setLastDocSnapshot(lastVisible)
+    // })
   }
 
 

@@ -21,7 +21,7 @@ export function dataFromSnapshot(snapshot) {
   }
 }
 
-export function fetchBlogsFromFirestore(limit, lastDocSnapshot = null) {
+export function fetchBlogsFromFirestore(startDate, limit, lastDocSnapshot = null) {
   return db
     .collection('blogs')
     .orderBy('blogDate')
