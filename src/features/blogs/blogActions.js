@@ -7,6 +7,7 @@ import {
 import { dataFromSnapshot, fetchBlogsFromFirestore } from '../../app/firestore/firestoreService'
 import {
   CLEAR_BLOGS,
+  CLEAR_SELECTED_BLOG,
   CREATE_BLOG,
   DELETE_BLOG,
   FETCH_BLOGS,
@@ -51,6 +52,12 @@ export function listenToSelectedBlog(blog) {
   return {
     type: LISTEN_TO_SELECTED_BLOG,
     payload: blog,
+  }
+}
+
+export function clearSelectedBlog() {
+  return {
+    type: CLEAR_SELECTED_BLOG,
   }
 }
 

@@ -1,5 +1,5 @@
 
-import { CLEAR_BLOGS, CREATE_BLOG, DELETE_BLOG, FETCH_BLOGS, LISTEN_TO_SELECTED_BLOG, RETAIN_STATE, SET_START_DATE, UPDATE_BLOG } from './blogConstants'
+import { CLEAR_BLOGS, CLEAR_SELECTED_BLOG, CREATE_BLOG, DELETE_BLOG, FETCH_BLOGS, LISTEN_TO_SELECTED_BLOG, RETAIN_STATE, SET_START_DATE, UPDATE_BLOG } from './blogConstants'
 
 const initialState = {
   blogs: [],
@@ -42,6 +42,11 @@ export default function blogReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         selectedBlog: payload,
+      }
+    case CLEAR_SELECTED_BLOG:
+      return {
+        ...state,
+        selectedBlog: null,
       }
     case CLEAR_BLOGS:
       return {

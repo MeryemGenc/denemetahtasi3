@@ -1,10 +1,10 @@
 import { Formik, Form } from 'formik'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import { Button, Header, Segment } from 'semantic-ui-react'
-import { listenToSelectedBlog } from '../blogActions'
+import { clearSelectedBlog, listenToSelectedBlog } from '../blogActions'
 import * as Yup from 'yup'
 import { categoryData } from '../../../app/api/categoryOptions'
 import MyTextInput from '../../../app/common/form/MyTextInput'
@@ -20,13 +20,18 @@ import {
 import LoadingComponent from '../../../app/layout/LoadingComponent'
 import { toast } from 'react-toastify'
 
-const BlogForm = ({ match, history }) => {
+const BlogForm = ({ match, history, location }) => {
   const dispatch = useDispatch() 
-
-  const {selectedBlog} = useSelector((state) =>
-    state.blog
-  )
+  const {selectedBlog} = useSelector((state) => state.blog )
   const { loading, error } = useSelector((state) => state.async)
+
+  useEffect(() => {
+    if (location.pathname !== '/createBlog') {
+      return
+    }
+    dispatch(clearSelectedBlog())
+  }, [dispatch, location.pathname])
+
 
   const initialValues = selectedBlog ?? {
     blogDate: '',
@@ -63,6 +68,7 @@ const BlogForm = ({ match, history }) => {
   return (
     <Segment clearing>
       <Formik
+        enableReinitialize
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting }) => {
@@ -99,6 +105,7 @@ const BlogForm = ({ match, history }) => {
               name='blogDate'
               placeholderText='Tarih'
               dateFormat='MMMM d, yyyy'
+              autoComplete='off'
             />
 
             <MyTextInput name='blogPhotoURL' placeholder='Foto URL' />
