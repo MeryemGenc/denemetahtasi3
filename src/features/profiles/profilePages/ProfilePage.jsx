@@ -11,7 +11,7 @@ let profile //bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 
 const ProfilePage = ({match}) => {
   const dispatch = useDispatch()
-  const { currentUserProfile } = useSelector((state) => state.profile)
+  // const { currentUserProfile } = useSelector((state) => state.profile)
   const { currentUser } = useSelector((state) => state.auth)
   const { loading, error } = useSelector((state) => state.async)
 
@@ -22,7 +22,7 @@ const ProfilePage = ({match}) => {
     shouldExecute: match.params.id !== currentUser.uid //bbbbbbbbbbbbbbbbbbbbbbbbbb
   })
 
-  let isCurrentUser = currentUser?.email === 'selinakil@gmail.com' ? true : null
+  // let isCurrentUser = currentUser?.email === 'selinakil@gmail.com' ? true : null
 
   // console.log('yyyyyyyy')
   // console.log(currentUser)

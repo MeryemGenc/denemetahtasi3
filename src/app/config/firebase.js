@@ -2,6 +2,7 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/firestore'
 import 'firebase/compat/database'
 import 'firebase/compat/auth'
+// error && firebase/compat/storage
 import 'firebase/storage'
 
 const firebaseConfig = {
